@@ -38,7 +38,7 @@ Claude confirms and asks exactly one question:
 
 ### `Senior-PM-Job-Post.docx`
 
-Structure follows `references/job-post-structure.md`:
+Structure follows `reference/job-post-structure.md`:
 
 1. **Opening hook** — Why this role exists now: the payments team is scaling the
    checkout experience and needs someone to own the roadmap end-to-end.
@@ -58,7 +58,7 @@ Length target: 500–650 words.
 
 ### `Senior-PM-Interview-Guide.docx`
 
-Structure follows `references/interview-guide-structure.md`:
+Structure follows `reference/interview-guide-structure.md`:
 
 - **Role summary** — one paragraph reminding interviewers what they're assessing.
 - **Stage map** — 3 stages, each interviewer, each competency.
@@ -80,7 +80,7 @@ Structure follows `references/interview-guide-structure.md`:
 
 ### `Senior-PM-Offer-Letter.docx`
 
-Based on `references/offer-letter-template.md`. Pre-filled where data is available:
+Based on `reference/offer-letter-template.md`. Pre-filled where data is available:
 
 | Field | Value |
 |---|---|

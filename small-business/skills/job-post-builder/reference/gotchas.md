@@ -45,7 +45,7 @@ rather than a long form." Redundant questions break trust and slow the workflow.
 ## 4. Silently expanding the user's existing format
 
 ✗ **Bad:** The user has a 3-section job post on file. Claude produces a 7-section
-post based on `references/job-post-structure.md` without asking.
+post based on `reference/job-post-structure.md` without asking.
 
 ✓ **Good:** Map the user's existing format against the reference, identify missing
 sections, and ask one question: "Your existing JD has X and Y — want me to add Z,
