@@ -41,12 +41,12 @@ route to DocuSign.
    and templates; run web search for 3–5 live postings for this role. Sources:
    file MCP, web search.
 3. **Write the job post** — Draft a market-informed job description using
-   `references/job-post-structure.md`. Output: `[Role]-Job-Post.docx` via docx skill.
+   `reference/job-post-structure.md`. Output: `[Role]-Job-Post.docx` via docx skill.
 4. **Draft interview guide + scoring rubric** — Build a stage-by-stage guide using
-   `references/interview-guide-structure.md`. Output: `[Role]-Interview-Guide.docx`
+   `reference/interview-guide-structure.md`. Output: `[Role]-Interview-Guide.docx`
    via docx skill.
 5. **Assemble offer letter** — Build offer letter with bracketed placeholders using
-   `references/offer-letter-template.md`. Output: `[Role]-Offer-Letter.docx` via
+   `reference/offer-letter-template.md`. Output: `[Role]-Offer-Letter.docx` via
    docx skill.
 6. **Route to DocuSign (if requested)** — Use Claude in Chrome to navigate DocuSign,
    upload the offer letter, configure the envelope, and save a draft. Requires
@@ -145,7 +145,7 @@ feel current and market-aware.
 
 ## Phase 3 — Write the Job Post
 
-Read `references/job-post-structure.md` for the full recommended structure and
+Read `reference/job-post-structure.md` for the full recommended structure and
 writing guidance.
 
 **If an existing job post or JD was found in Phase 2:**
@@ -153,7 +153,7 @@ Use it as the structural template — mirror its section names, tone, ordering, 
 any boilerplate the user has established (e.g. company description, benefits blurb,
 how-to-apply language). The user's format is the source of truth.
 
-Compare it against `references/job-post-structure.md` and surface any missing
+Compare it against `reference/job-post-structure.md` and surface any missing
 components in a single question before writing:
 
 > "Your existing JD has a responsibilities section and requirements list, but I
@@ -163,7 +163,7 @@ components in a single question before writing:
 Only add the missing components if the user confirms.
 
 **If no existing job post was found:**
-Build from scratch using `references/job-post-structure.md` as the full template.
+Build from scratch using `reference/job-post-structure.md` as the full template.
 
 **Either way:**
 - Lead with impact, not just tasks
@@ -179,7 +179,7 @@ Read `docx/SKILL.md` before generating the file.
 
 ## Phase 4 — Draft Interview Questions + Scoring Rubric
 
-Read `references/interview-guide-structure.md` for the full recommended format.
+Read `reference/interview-guide-structure.md` for the full recommended format.
 
 **If an existing interview guide was found in Phase 2:**
 Use the user's existing guide as the structural template — mirror its section names,
@@ -198,7 +198,7 @@ Only add the missing components if the user confirms. Don't silently expand thei
 format without asking.
 
 **If no existing guide was found:**
-Build the guide from scratch using `references/interview-guide-structure.md` as
+Build the guide from scratch using `reference/interview-guide-structure.md` as
 the full template. The reference defines the recommended sections, question format,
 rubric anchors, and debrief guidance — follow it completely.
 
@@ -227,7 +227,7 @@ Save as `[Role]-Interview-Guide.docx` using the docx skill.
 
 ## Phase 5 — Assemble the Offer Letter Template
 
-Read `references/offer-letter-template.md` for the full base template and field
+Read `reference/offer-letter-template.md` for the full base template and field
 definitions.
 
 **If an existing offer letter or template was found in Phase 2:**
@@ -235,7 +235,7 @@ Use it as the structural template — preserve the user's formatting, clause ord
 signature blocks, and any legal language they've already established. Their version
 is the source of truth.
 
-Compare it against `references/offer-letter-template.md` and surface any missing
+Compare it against `reference/offer-letter-template.md` and surface any missing
 components in a single question before writing:
 
 > "Your existing offer letter has compensation and position details, but I noticed
@@ -245,7 +245,7 @@ components in a single question before writing:
 Only add the missing components if the user confirms.
 
 **If no existing offer letter was found:**
-Build from scratch using `references/offer-letter-template.md` as the full template.
+Build from scratch using `reference/offer-letter-template.md` as the full template.
 
 **Either way:**
 - Use clearly marked `[BRACKETED]` placeholder fields for all candidate-specific values
@@ -328,17 +328,8 @@ Load these when reaching the relevant phase — don't load all upfront:
 
 | File | Load when |
 |---|---|
-| `references/job-post-structure.md` | Phase 3 — before writing the job post |
-| `references/interview-guide-structure.md` | Phase 4 — before writing the interview guide |
-| `references/offer-letter-template.md` | Phase 5 — before writing the offer letter |
-| `references/gotchas.md` | Any phase — non-obvious edge cases |
-| `references/examples/worked-example.md` | For reference on expected output shape |
-
----
-
-## Tests
-
-See `tests/triggers.md` for must-trigger, must-NOT-trigger, and ambiguous routing cases.
-
-See `tests/scenarios.md` for end-to-end scenario walkthroughs covering the happy
-path, missing connector, and approval gate flows.
+| `reference/job-post-structure.md` | Phase 3 — before writing the job post |
+| `reference/interview-guide-structure.md` | Phase 4 — before writing the interview guide |
+| `reference/offer-letter-template.md` | Phase 5 — before writing the offer letter |
+| `reference/gotchas.md` | Any phase — non-obvious edge cases |
+| `reference/examples/worked-example.md` | For reference on expected output shape |
