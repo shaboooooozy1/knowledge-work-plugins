@@ -137,6 +137,18 @@
       }
     },
     {
+      "name": "tavily",
+      "displayName": "Tavily",
+      "description": "Build AI applications with real-time web data using Tavily's search, extract, crawl, and research APIs.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/tavily-ai/skills.git",
+        "sha": "ea5e8201b0d3ed9c10b70b71187589bd761fe2d2"
+      },
+      "homepage": "https://www.tavily.com/"
+    },
+    {
       "name": "vanta-mcp-plugin",
       "displayName": "Vanta",
       "description": "The Vanta plugin connects Claude to Vanta's security and compliance platform through the Vanta MCP server. List failing compliance tests, get test-specific remediation context, and fix failing tests with code changes — directly from your Claude session.",
@@ -207,7 +219,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/amekala/adspirer-mcp-plugin.git",
-        "sha": "c40623f1aa7b568e960d3f2e2558a6fcf10e6c18"
+        "sha": "69967dedf1f7a317462d1aa243ae2a6d31e39d09"
       },
       "homepage": "https://www.adspirer.com"
     },
@@ -222,7 +234,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/sanity-io/agent-toolkit.git",
-        "sha": "2ec17ddc6034073b2974e6dbf691acb3bcc8b9fd"
+        "sha": "6c81e246ed9d63588ca1fb624f29ac804184d1be"
       },
       "homepage": "https://www.sanity.io"
     },
@@ -233,7 +245,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Zoominfo/zoominfo-mcp-plugin.git",
-        "sha": "cfdebda5f3ce24d0d964cc0b3e9e5dd9ea9d507d"
+        "sha": "66eae634f40f68bddc6027f0167bbecdb5f4b531"
       },
       "homepage": "https://zoominfo.com"
     },
@@ -271,7 +283,7 @@
         "url": "https://github.com/zapier/zapier-mcp.git",
         "path": "plugins/zapier",
         "ref": "main",
-        "sha": "469b06007824bb859982a95d2dad5caec11e0bf1"
+        "sha": "217d65a980f9b75536babf89ba64bf03ad95beea"
       },
       "homepage": "https://github.com/zapier/zapier-mcp/tree/main/plugins/zapier"
     },
@@ -293,7 +305,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/cockroachdb/claude-plugin.git",
-        "sha": "736bd11df55bac97e2a6c98be8e93503b125902c"
+        "sha": "fb845eda90ab894f26df7b084f3652e5cef49dd4"
       },
       "homepage": "https://github.com/cockroachdb/claude-plugin"
     },
@@ -315,7 +327,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/fastly/fastly-agent-toolkit.git",
-        "sha": "73af5b94a98448ffeed6e2993495dc83c9a597be"
+        "sha": "ea3623d5facc7053eaa802f5fc483dd7121a39aa"
       },
       "homepage": "https://github.com/fastly/fastly-agent-toolkit/blob/main/README.md"
     },
@@ -326,7 +338,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/cloudinary-devs/cloudinary-plugin.git",
-        "sha": "7b443d7dbd607bfe4850d8cfcab6ba4cbf1a57c3"
+        "sha": "77ed3c5da085ef1d189948f9ff2a1bf5ab7b257b"
       },
       "homepage": "https://cloudinary.com/documentation"
     },
@@ -337,7 +349,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Nimbleway/agent-skills.git",
-        "sha": "eb97261aa8145fa6d0f45d62d0955805fa06fb91"
+        "sha": "fdd3d17713f591b2643d90c35f44546f97458163"
       },
       "homepage": "https://docs.nimbleway.com/integrations/agent-skills/plugin-installation"
     },
@@ -348,7 +360,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/brightdata/skills.git",
-        "sha": "8d427e9871566efe3f0a1c8888f98b6fe8288831"
+        "sha": "e825f02fbcd7a89087fd1053a57ddcd45113370f"
       },
       "homepage": "https://docs.brightdata.com"
     },
@@ -417,7 +429,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/figma/mcp-server-guide.git",
-        "sha": "2efd0e37d10c35c4a7cf6d2b7381c9dc1a569bd4"
+        "sha": "07316dd2920d61303ca0e52812b31f5f341e7b15"
       },
       "homepage": "https://github.com/figma/mcp-server-guide"
     },
@@ -431,7 +443,7 @@
         "url": "https://github.com/adobe/skills.git",
         "path": "plugins/creative-cloud/adobe-for-creativity",
         "ref": "main",
-        "sha": "2178b523eae8dcc75251829a49b24e62e8af6773"
+        "sha": "778ea719f56f4ca1af96a8d07838243349bea5b0"
       },
       "homepage": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity"
     },
@@ -449,7 +461,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/box/box-for-ai.git",
-        "sha": "16f1a0427710b0812519ea634cd5ce6830bde8fc"
+        "sha": "172a8273f5d532c13ef6a3057e50c30e5368a2aa"
       },
       "homepage": "https://github.com/box/box-for-ai"
     },
@@ -488,7 +500,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "d30c529680f4c3d47fcc7a92a4377fc888d8e786"
+        "sha": "651a08ae95ae3986ac508d24a7e541131ed72d87"
       },
       "homepage": "https://carta.com"
     },
@@ -501,7 +513,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "d30c529680f4c3d47fcc7a92a4377fc888d8e786"
+        "sha": "62e9f9a00ba06ab54f9f8896fb8becdbfd6dd46a"
       },
       "homepage": "https://carta.com"
     },
@@ -514,7 +526,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "d30c529680f4c3d47fcc7a92a4377fc888d8e786"
+        "sha": "651a08ae95ae3986ac508d24a7e541131ed72d87"
       },
       "homepage": "https://carta.com"
     },
@@ -543,7 +555,7 @@
         "url": "https://github.com/wonderwhy-er/DesktopCommanderMCP.git",
         "path": "plugins/claude",
         "ref": "main",
-        "sha": "fea06819cb1211658ae6c7fc98134c2ef2109838"
+        "sha": "1eccc8b09cc09805202a1737fd20d605356c3671"
       },
       "homepage": "https://desktopcommander.app"
     },
@@ -554,7 +566,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qodo-ai/qodo-skills.git",
-        "sha": "8aec13d6ac60feb9d9f84f36aa1753234de17dc8"
+        "sha": "5c31f3275199c6ccf07fa84c3a34d6d338f97aee"
       },
       "homepage": "https://qodo.ai"
     },
@@ -567,7 +579,7 @@
         "url": "https://github.com/ServiceNow/sdk.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "35ef6130d8a49e67b531bde2f987808426273d15"
+        "sha": "255d35e94e5393e9f36e7ca2789dee83a8aa7f47"
       },
       "homepage": "https://servicenow.github.io/sdk/"
     },
@@ -581,7 +593,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/twilio/ai.git",
-        "sha": "7d15b215240df28e86a0b7305520524a2c005005"
+        "sha": "29f355c55ddb137f34b1fa8345a7fea153805ffc"
       },
       "homepage": "https://www.twilio.com"
     },
@@ -592,7 +604,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/explorium-ai/vibeprospecting-plugin.git",
-        "sha": "14cb2971a99661382f5a56a9caa7c2d526c4e444"
+        "sha": "804bab5e0500d7a0f8613a83a3cfe5b79e6a31c3"
       },
       "homepage": "https://www.vibeprospecting.ai/product/claude-plugin"
     },
@@ -603,7 +615,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/base44/skills.git",
-        "sha": "aef0fa35f21b3c0c000d5ab8c0b068e6188618b6"
+        "sha": "40e548021670ed409d3bae15601726cf652d846f"
       },
       "homepage": "https://docs.base44.com"
     },
@@ -614,7 +626,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "3210de0af739dd668e1531b8acd9a6a6ec3bf5c4"
+        "sha": "bef043f07972401e14fc4b129cf3895417f09352"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -626,7 +638,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/datadog-labs/claude-code-plugin.git",
-        "sha": "96c28a8ce6f258ed54c9a17f16ee206deb8e3f28"
+        "sha": "c5c062abba0df33f6bfc2c0fd0f8d17857e3fa2c"
       },
       "homepage": "https://docs.datadoghq.com/bits_ai/mcp_server/setup?tab=claudecode"
     },
@@ -640,7 +652,7 @@
         "url": "https://github.com/airwallex/airwallex-marketplace.git",
         "path": "plugins/airwallex-agentos",
         "ref": "master",
-        "sha": "683a7536f9445c07439d087607b44b0383b8c41d"
+        "sha": "b0bd2c3d65da47e39db8c779501119376d91c431"
       },
       "homepage": "https://www.airwallex.com/docs"
     },
@@ -652,7 +664,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/langfuse/skills.git",
-        "sha": "c39789078b848160a695947907db3ba40b7a2bce"
+        "sha": "abe69fac6b0e0df94605dc5ae162da4726d0fb78"
       },
       "homepage": "https://langfuse.com"
     },
@@ -666,7 +678,7 @@
         "url": "https://github.com/val-town/plugins.git",
         "path": "plugin",
         "ref": "main",
-        "sha": "1f7928397349f2ccb228302d8b062c7f20745871"
+        "sha": "1bd1c3f93161d88908dc0838aa81980ff1b2e4f7"
       },
       "homepage": "https://val.town"
     },
@@ -686,6 +698,354 @@
       "skills": [
         "./learn-with-coursera"
       ]
+    },
+    {
+      "name": "monday-crm",
+      "displayName": "monday CRM",
+      "description": "Run your monday CRM in plain language. Build a pipeline from scratch, start the day with a ranked deal briefing, spin up a forecast dashboard, audit board health, clean up messy data in bulk, and turn meeting notes into deal updates. Every skill writes back into monday as a real update, doc, or dashboard. Built on the official monday MCP connector.",
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/mondaycom/mcp.git",
+        "path": "plugins/monday-crm",
+        "ref": "master",
+        "sha": "fc64cf88c2fd9e3081f70fa8bbfb6d2bbee809a8"
+      },
+      "homepage": "https://monday.com"
+    },
+    {
+      "name": "monday-com",
+      "displayName": "monday.com",
+      "description": "The official monday.com plugin for Claude Cowork. Manage boards, items, docs, and forms across work management, CRM, dev, service, and campaigns. Full read and write access via OAuth.",
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/mondaycom/monday-claude-cowork-plugin.git",
+        "sha": "ce381e93a0a6c2ed3b9942ff1803b8078ba89389"
+      },
+      "homepage": "https://monday.com"
+    },
+    {
+      "name": "lusha",
+      "displayName": "Lusha",
+      "description": "Prospect, enrich, and build call-ready lead lists using Lusha's B2B intelligence platform — verified phone numbers, company signals, and lookalike targeting.",
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/lusha-oss/lusha-mcp-plugin.git",
+        "sha": "f42bb8f65b3a62fd59711578b8e0446bca644e4b"
+      },
+      "homepage": "https://www.lusha.com"
+    },
+    {
+      "name": "auth0",
+      "displayName": "Auth0",
+      "description": "Essential Auth0 skills including quickstarts, migration from other providers, and Multi-Factor Authentication (MFA).",
+      "category": "security",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/auth0/agent-skills.git",
+        "path": "plugins/auth0",
+        "ref": "main",
+        "sha": "d1b19854e60c6dfde048df91e4d97e536dba2491"
+      },
+      "homepage": "https://github.com/auth0/agent-skills"
+    },
+    {
+      "name": "buildkite",
+      "displayName": "Buildkite",
+      "description": "Official Buildkite skills for Claude Code, Cursor, and other AI coding agents — pipelines, migration, preflight, agent runtime, CLI, and API",
+      "category": "deployment",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/buildkite/skills.git",
+        "sha": "5bbd53d496b9dd5cd7b3e0a2d8345daa333c3f4e"
+      },
+      "homepage": "https://github.com/buildkite/skills"
+    },
+    {
+      "name": "clickhouse",
+      "displayName": "ClickHouse",
+      "description": "ClickHouse Claude Code plugin: skills (ClickHouse best practices), rules and MCP.",
+      "category": "database",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/ClickHouse/clickhouse-claude-code-plugin.git",
+        "sha": "4c60200bf523342b68d5935b53f4dd0acb53e6b8"
+      },
+      "homepage": "https://github.com/ClickHouse/clickhouse-claude-code-plugin"
+    },
+    {
+      "name": "datarobot-agent-skills",
+      "displayName": "DataRobot Agent Skills",
+      "description": "DataRobot skills for AI/ML workflows — model training, deployment, predictions, feature engineering, monitoring, explainability, data preparation, App Framework CI/CD, and external agent monitoring.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/datarobot-oss/datarobot-agent-skills.git",
+        "sha": "d438bb71a6d9cf58bef69cf286966bb218dc386f"
+      },
+      "homepage": "https://datarobot.com"
+    },
+    {
+      "name": "qdrant-skills",
+      "displayName": "Qdrant",
+      "description": "Agent skills for Qdrant vector search: scaling, performance optimization, search quality, monitoring, deployment, model migration, version upgrades, and SDK usage",
+      "category": "database",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/qdrant/skills.git",
+        "sha": "e24485f0e76d3d4504bf5045ead9a42b56561521"
+      },
+      "homepage": "https://skills.qdrant.tech"
+    },
+    {
+      "name": "qt-development-skills",
+      "displayName": "Qt Development Skills",
+      "description": "Agentic engineering skills for Qt software development, including Qt C++/QML code review, QML coding, and Qt C++/QML code documentation. These skills use AI and can make mistakes. Always double-check the output carefully.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/TheQtCompanyRnD/agent-skills.git",
+        "sha": "71d6c10da78b9a764468ae11c86ab3bc4ca4921f"
+      },
+      "homepage": "https://github.com/TheQtCompanyRnD/agent-skills"
+    },
+    {
+      "name": "exa",
+      "displayName": "Exa",
+      "description": "Exa AI web search, deep research, and content extraction. Provides MCP tools and research skills for comprehensive web search, people discovery, company research, academic papers, and more.",
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/exa-labs/exa-mcp-server.git",
+        "sha": "685aaa990c120a1e009fbbb8bc809128cedc957a"
+      },
+      "homepage": "https://exa.ai/docs/reference/exa-mcp"
+    },
+    {
+      "name": "dropbox",
+      "displayName": "Dropbox",
+      "description": "The Dropbox plugin for Claude connects your Dropbox files directly to Claude, so you can search, organize, save generated content, and create sharing links without switching tools. It respects your existing Dropbox permissions, and Claude only works with files you already have access to.",
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/dropbox/dropbox-ai-plugins.git",
+        "path": "claude",
+        "ref": "main",
+        "sha": "4135e81caf8275b4c97caef244479e0dcb6fb823"
+      },
+      "homepage": "https://www.dropbox.com"
+    },
+    {
+      "name": "canva",
+      "displayName": "Canva",
+      "description": "Create, edit, review, resize, and brand-check Canva designs with the Canva MCP server.",
+      "category": "design",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/canva-sdks/canva-skills.git",
+        "path": "plugins/canva",
+        "ref": "main",
+        "sha": "b56291ea0a36d0a941e1478b47959be5f1771dee"
+      },
+      "homepage": "https://www.canva.com"
+    },
+    {
+      "name": "pixeltable",
+      "displayName": "Pixeltable",
+      "description": "Build multimodal AI applications with Pixeltable -- tables, computed columns, embedding search, UDFs, tool-calling agents, and 25+ AI provider integrations.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/pixeltable/pixeltable-skill.git",
+        "sha": "ec4c931a24a4b3e423b66f8dd8c381c57e2f39b1"
+      },
+      "homepage": "https://docs.pixeltable.com"
+    },
+    {
+      "name": "grafana-assistant",
+      "displayName": "Grafana Assistant",
+      "description": "Skills and rules for developing and using the Grafana Assistant app and CLI.",
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/grafana/ai-marketplace.git",
+        "path": "plugins/grafana-assistant",
+        "ref": "main",
+        "sha": "a5c72f2d74c640e9675eb0249526447968535015"
+      },
+      "homepage": "https://grafana.com"
+    },
+    {
+      "name": "grafana-cloud-mcp",
+      "displayName": "Grafana Cloud MCP",
+      "description": "Hosted MCP server for AI-assisted Grafana Cloud observability — no local installation required.",
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/grafana/ai-marketplace.git",
+        "path": "plugins/grafana-cloud-mcp",
+        "ref": "main",
+        "sha": "12be5634a492f73c189d466c5449d09b853ad7a4"
+      },
+      "homepage": "https://grafana.com"
+    },
+    {
+      "name": "grasp",
+      "displayName": "Grasp",
+      "description": "Deal-work workflows powered by Grasp company lookup, table creation, import, buyer, transaction, table enrichment, contact, and market research tools.",
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/grasp-ai/grasp-mcp-plugin.git",
+        "sha": "3331cc8b908e038df5ec1b199c55b2f763943511"
+      },
+      "homepage": "https://www.grasp-ai.com/"
+    },
+    {
+      "name": "honeycomb",
+      "displayName": "Honeycomb",
+      "description": "Skills, agents, and workflows for Honeycomb observability — query patterns, production investigations, SLOs, OpenTelemetry instrumentation, and Beeline migration. Designed to complement the Honeycomb MCP server.",
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/honeycombio/agent-skill.git",
+        "path": "honeycomb",
+        "ref": "main",
+        "sha": "189553c8a879cfaaf206ba9cc68c1b2117d12a76"
+      },
+      "homepage": "https://github.com/honeycombio/agent-skill"
+    },
+    {
+      "name": "b12-claude-plugin",
+      "displayName": "B12",
+      "description": "B12 plugin with two skills: Website Generator (create a B12 website from a brief description) and B12 Website Editor (edit a live B12 website using Claude's browser access in Claude Cowork).",
+      "category": "design",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/b12io/b12-claude-plugin.git",
+        "sha": "a53638c2b23b82c6be7c4e5b1e3cecd6a59f9fb8"
+      },
+      "homepage": "https://github.com/b12io/b12-claude-plugin"
+    },
+    {
+      "name": "signoz",
+      "displayName": "SigNoz",
+      "description": "Official SigNoz plugin for MCP setup, docs, queries, dashboards, and alerts",
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/SigNoz/agent-skills.git",
+        "path": "plugins/signoz",
+        "ref": "main",
+        "sha": "478ec291491b7eb59824fb9947bf6f37ca640db3"
+      },
+      "homepage": "https://signoz.io/docs/ai/agent-skills"
+    },
+    {
+      "name": "tinyfish",
+      "displayName": "TinyFish",
+      "description": "The complete web toolkit for your agent. Search the web and get answers in milliseconds. Fetch any URL and get clean markdown content back. Send a browser agent to navigate sites, fill forms, and extract structured data. Spin up a headless browser for full programmatic control when you need it.",
+      "category": "automation",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/tinyfish-io/tinyfish-cookbook.git",
+        "path": "plugins/tinyfish",
+        "ref": "main",
+        "sha": "6156fbdb0dd0509af18326a0e7af2e6717768bdb"
+      },
+      "homepage": "https://docs.tinyfish.ai"
+    },
+    {
+      "name": "carbone-skill",
+      "displayName": "Carbone",
+      "description": "Official Carbone skill — complete templating language reference covering tags, loops, conditions, formatters, aggregators, and all output formats (DOCX, XLSX, PPTX, ODT, HTML, Markdown, PDF)",
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/carboneio/carbone-skill.git",
+        "sha": "52cd97e4ff35490440c066822739e466fab47901"
+      },
+      "homepage": "https://carbone.io"
+    },
+    {
+      "name": "modern-web-guidance",
+      "displayName": "Modern Web Guidance",
+      "description": "Keep your coding agent up to date with the latest web best practices",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance.git",
+        "sha": "79aae1e0bed948e48fd78b58538c5ee1e6463da9"
+      },
+      "homepage": "https://goo.gle/modern-web-guidance"
+    },
+    {
+      "name": "stackhawk-api",
+      "displayName": "StackHawk API",
+      "description": "Query the StackHawk platform API for security posture reporting, findings analysis, and app management. Guides agents through authentication, data retrieval, and result presentation.",
+      "category": "security",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/stackhawk/agent-skills.git",
+        "path": "plugins/api",
+        "ref": "main",
+        "sha": "ba4bab433d31dc313de2ac6e72a43318b31f28dd"
+      },
+      "homepage": "https://docs.stackhawk.com/ai-security/"
+    },
+    {
+      "name": "stackhawk-hawkscan",
+      "displayName": "StackHawk HawkScan",
+      "description": "Configure, run, and interpret HawkScan DAST results. Generates stackhawk.yml configs, runs scans via CLI or Docker, and transforms security findings into prioritized fix tasks for your coding agent.",
+      "category": "security",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/stackhawk/agent-skills.git",
+        "path": "plugins/hawkscan",
+        "ref": "main",
+        "sha": "ba4bab433d31dc313de2ac6e72a43318b31f28dd"
+      },
+      "homepage": "https://docs.stackhawk.com/ai-security/"
+    },
+    {
+      "name": "growthbook",
+      "displayName": "GrowthBook",
+      "description": "A suite of agent skills for the full GrowthBook feature flag and experimentation lifecycle.",
+      "category": "testing",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/growthbook/skills.git",
+        "sha": "2ba1f3608d15394b2881125fc4babdc761454cb5"
+      },
+      "homepage": "https://growthbook.io"
+    },
+    {
+      "name": "browser-use",
+      "displayName": "Browser Use",
+      "description": "Give Claude a real browser — your Chrome or a Browser Use Cloud browser. Use it whenever a task involves a website or web app: browsing, scraping and data extraction, filling forms, testing sites, taking screenshots, automating web workflows.",
+      "category": "automation",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/browser-use/plugins.git",
+        "path": "browser-use",
+        "ref": "main",
+        "sha": "a25f0a262928bcbb62071432636d943ed9f2b6aa"
+      },
+      "homepage": "https://browser-use.com"
+    },
+    {
+      "name": "gitkraken",
+      "displayName": "GitKraken",
+      "description": "Gives Claude access to your real Git and project context: commits, branches, pull requests, and issues across every repo you work in. Works with GitHub, GitLab, Azure DevOps, Bitbucket, and Jira.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/gitkraken/claude-plugin.git",
+        "sha": "cd0c2976c9b47a56e2b7d4cce1cd77fc058bee39"
+      },
+      "homepage": "https://www.gitkraken.com"
     }
   ]
 }
