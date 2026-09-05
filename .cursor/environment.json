@@ -1,0 +1,4 @@
+{
+  "name": "Knowledge Work Plugins",
+  "install": "bash .cursor/install.sh"
+}
