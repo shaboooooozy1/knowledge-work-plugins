@@ -1,0 +1,7 @@
+# Python virtualenv created by .cursor/install.sh
+.venv/
+__pycache__/
+*.pyc
+
+# Local scan cache used by CI-style plugin scans
+.scan-cache/
