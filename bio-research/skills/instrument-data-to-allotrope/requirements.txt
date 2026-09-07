@@ -7,19 +7,19 @@
 # Installation:
 #   pip install -r requirements.txt --break-system-packages
 #
-# Note: Versions pinned as of 2025-01-05
+# Note: Versions pinned as of 2026-07-21
 
 # Core parsing library - provides native instrument parsers
-allotropy==0.1.55
+allotropy==0.1.141
 
 # Data manipulation and file reading
-pandas==2.0.3
+pandas==2.3.3
 
 # Excel file support (required by pandas for .xlsx files)
-openpyxl==3.1.2
+openpyxl==3.1.5
 
 # PDF parsing support (for instruments that export PDFs)
-pdfplumber==0.9.0
+pdfplumber==0.11.10
 
 # Scientific computing (optional, but recommended for advanced analysis)
 # numpy==1.24.3  # Uncomment if needed
