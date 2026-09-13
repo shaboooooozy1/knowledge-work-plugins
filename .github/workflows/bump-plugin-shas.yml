@@ -7,14 +7,25 @@ name: Bump Plugin SHAs
 # independently. (Cohort-2 cutover from the previous single-batch
 # `bump/plugin-shas` PR — mirrors claude-plugins-official / -community.)
 #
-# Bot-free — uses the default GITHUB_TOKEN. PRs opened with GITHUB_TOKEN don't
+# Token: the composite action is given `secrets.BUMP_PAT || github.token`.
+# The default GITHUB_TOKEN cannot open PRs when the repo-level "Allow GitHub
+# Actions to create and approve pull requests" setting is off (the nightly
+# failure this workflow hit: createPullRequest -> "GitHub Actions is not
+# permitted to create or approve pull requests"). BUMP_PAT (a fine-grained PAT
+# with contents:write + pull-requests:write on this repo) is not subject to
+# that toggle; github.token is the fallback for forks / repos where the
+# setting is enabled.
+#
+# PRs opened with GITHUB_TOKEN don't
 # trigger on:pull_request workflows, so the policy scan (`scan` from Scan
 # Plugins, a required status check on main) would never run and the bump PR
 # could never merge. workflow_dispatch is exempt from that recursion guard, so
 # we dispatch the scan ourselves against each per-entry bump branch after its
 # PR is opened. Each check run lands on the branch HEAD — the same SHA as the
 # PR head — and satisfies the required check. (Scan Plugins runs its job
-# unconditionally on workflow_dispatch, so a dispatch always reports.)
+# unconditionally on workflow_dispatch, so a dispatch always reports.) When a
+# PAT opens the PR, on:pull_request DOES fire and reports the same check; the
+# explicit dispatch below is then redundant but harmless (same head SHA).
 #
 # IMPORTANT — dispatch `scan-plugins` ONLY. Unlike claude-plugins-official
 # (which requires `scan`+`check`+`validate` and fans out all three), KWP's only
@@ -72,6 +83,15 @@ jobs:
 
       # createCommitOnBranch-based bump so commits are signed by GitHub and
       # satisfy the org-level required_signatures ruleset on main.
+      #
+      # github-token: prefer the BUMP_PAT secret (a fine-grained PAT with
+      # contents:write + pull-requests:write on this repo). The default
+      # GITHUB_TOKEN cannot open the bump PR when the repo-level "Allow
+      # GitHub Actions to create and approve pull requests" setting is off —
+      # `gh pr create` then fails with "GitHub Actions is not permitted to
+      # create or approve pull requests (createPullRequest)". A PAT is not
+      # subject to that toggle. Falls back to github.token when the secret is
+      # unset so a fork / a repo with the setting enabled still works.
       - uses: anthropics/claude-plugins-community/.github/actions/bump-plugin-shas@426e469f322952061102b286b378c0c9733a0934
         id: bump
         with:
@@ -80,6 +100,7 @@ jobs:
           only: ${{ inputs.plugin }}
           pr-mode: per-entry
           claude-cli-version: latest
+          github-token: ${{ secrets.BUMP_PAT || github.token }}
 
       # Per-entry fan-out: dispatch the policy scan against each bump branch.
       # `pr-urls` is a JSON array of {name, old_sha, new_sha, branch, pr_url}
