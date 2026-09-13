@@ -30,7 +30,7 @@
     },
     "definite": {
       "type": "http",
-      "url": "https://api.definite.app/v3/mcp/http"
+      "url": ""
     }
   }
 }
