@@ -7,14 +7,17 @@ name: Bump Plugin SHAs
 # independently. (Cohort-2 cutover from the previous single-batch
 # `bump/plugin-shas` PR — mirrors claude-plugins-official / -community.)
 #
-# Bot-free — uses the default GITHUB_TOKEN. PRs opened with GITHUB_TOKEN don't
-# trigger on:pull_request workflows, so the policy scan (`scan` from Scan
-# Plugins, a required status check on main) would never run and the bump PR
-# could never merge. workflow_dispatch is exempt from that recursion guard, so
-# we dispatch the scan ourselves against each per-entry bump branch after its
-# PR is opened. Each check run lands on the branch HEAD — the same SHA as the
-# PR head — and satisfies the required check. (Scan Plugins runs its job
-# unconditionally on workflow_dispatch, so a dispatch always reports.)
+# Uses a dedicated automation token when available. This repository disallows
+# PR creation from the default GITHUB_TOKEN, so the nightly bump must skip
+# cleanly unless a PAT-style secret is configured. When a dedicated token is
+# present, PRs opened with it don't trigger on:pull_request workflows, so the
+# policy scan (`scan` from Scan Plugins, a required status check on main)
+# would never run and the bump PR could never merge. workflow_dispatch is
+# exempt from that recursion guard, so we dispatch the scan ourselves against
+# each per-entry bump branch after its PR is opened. Each check run lands on
+# the branch HEAD — the same SHA as the PR head — and satisfies the required
+# check. (Scan Plugins runs its job unconditionally on workflow_dispatch, so a
+# dispatch always reports.)
 #
 # IMPORTANT — dispatch `scan-plugins` ONLY. Unlike claude-plugins-official
 # (which requires `scan`+`check`+`validate` and fans out all three), KWP's only
@@ -70,16 +73,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check bump PR token
+        id: auth
+        env:
+          BUMP_PLUGIN_SHAS_TOKEN: ${{ secrets.BUMP_PLUGIN_SHAS_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$BUMP_PLUGIN_SHAS_TOKEN" ]]; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "skip=true" >> "$GITHUB_OUTPUT"
+          echo "::notice::Skipping bump-plugin-shas: this repository does not allow PR creation with GITHUB_TOKEN. Configure the BUMP_PLUGIN_SHAS_TOKEN secret (contents:write + pull-requests:write) to re-enable automated bump PRs."
+
       # createCommitOnBranch-based bump so commits are signed by GitHub and
       # satisfy the org-level required_signatures ruleset on main.
       - uses: anthropics/claude-plugins-community/.github/actions/bump-plugin-shas@426e469f322952061102b286b378c0c9733a0934
         id: bump
+        if: steps.auth.outputs.skip != 'true'
         with:
           marketplace-path: .claude-plugin/marketplace.json
           max-bumps: ${{ inputs.max_bumps || '30' }}
           only: ${{ inputs.plugin }}
           pr-mode: per-entry
           claude-cli-version: latest
+          github-token: ${{ secrets.BUMP_PLUGIN_SHAS_TOKEN }}
 
       # Per-entry fan-out: dispatch the policy scan against each bump branch.
       # `pr-urls` is a JSON array of {name, old_sha, new_sha, branch, pr_url}
