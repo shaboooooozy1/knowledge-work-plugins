@@ -7,7 +7,8 @@ name: Bump Plugin SHAs
 # independently. (Cohort-2 cutover from the previous single-batch
 # `bump/plugin-shas` PR — mirrors claude-plugins-official / -community.)
 #
-# Use BUMP_PAT for PR creation when configured; fall back to GITHUB_TOKEN.\n# PRs opened with GITHUB_TOKEN don't
+# Use BUMP_PAT for PR creation when configured; fall back to GITHUB_TOKEN.
+# PRs opened with GITHUB_TOKEN don't
 # trigger on:pull_request workflows, so the policy scan (`scan` from Scan
 # Plugins, a required status check on main) would never run and the bump PR
 # could never merge. workflow_dispatch is exempt from that recursion guard, so
