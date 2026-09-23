@@ -126,14 +126,17 @@ async function evaluate({ github, context }) {
 //     (SHA bumps), which the additions-only external-contributor rule forbids; AND
 //   - org members (write/admin).
 // Safe under pull_request_target: a fork PR cannot set its author to github-actions[bot]
-// (that login is only ever the org's own GITHUB_TOKEN workflow), and the member path is a
-// real permission lookup. Wrapped in try/catch because getCollaboratorPermissionLevel throws
-// for a non-collaborator/unknown user — without this, both callers would error the job rather
-// than fall through to scope evaluation.
+// (that login is only ever the org's own GITHUB_TOKEN workflow). Prefer a real permission
+// lookup, but fall back to GitHub's trusted PR payload author_association so owners/members/
+// collaborators are not misclassified if the collaborator lookup is unavailable. Wrapped in
+// try/catch because getCollaboratorPermissionLevel throws for a non-collaborator/unknown user
+// — without this, both callers would error the job rather than fall through to scope evaluation.
 const EXEMPT_BOTS = new Set(['github-actions[bot]']);
+const EXEMPT_AUTHOR_ASSOCIATIONS = new Set(['OWNER', 'MEMBER', 'COLLABORATOR']);
 
 async function isExemptAuthor({ github, context }) {
-  const author = context.payload.pull_request.user.login;
+  const pr = context.payload.pull_request;
+  const author = pr.user.login;
   if (EXEMPT_BOTS.has(author)) {
     return { exempt: true, reason: `${author} is the trusted automation bot` };
   }
@@ -146,6 +149,10 @@ async function isExemptAuthor({ github, context }) {
     }
   } catch (e) {
     // not a collaborator / lookup failed → not exempt; fall through to scope evaluation
+  }
+  const association = pr.author_association;
+  if (EXEMPT_AUTHOR_ASSOCIATIONS.has(association)) {
+    return { exempt: true, reason: `${author} is ${association.toLowerCase()} per author_association` };
   }
   return { exempt: false };
 }
