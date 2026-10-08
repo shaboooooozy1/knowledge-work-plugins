@@ -63,6 +63,10 @@ concurrency:
 jobs:
   bump:
     runs-on: ubuntu-latest
+    # A repository secret is needed when the repository disallows PR creation
+    # by GITHUB_TOKEN. PRs opened with this token trigger pull_request scans.
+    env:
+      HAS_BUMP_PLUGIN_SHAS_TOKEN: ${{ secrets.BUMP_PLUGIN_SHAS_TOKEN != '' }}
     # Per-bump cost is ~2s (ls-remote + shallow clone + validate); 30 entries
     # is ~1-2 min. The 60 min ceiling absorbs slow upstreams without letting a
     # pathological run consume the default 360 min budget.
@@ -80,12 +84,16 @@ jobs:
           only: ${{ inputs.plugin }}
           pr-mode: per-entry
           claude-cli-version: latest
+          # Configure BUMP_PLUGIN_SHAS_TOKEN with contents:write and
+          # pull-requests:write if GITHUB_TOKEN PR creation is disabled.
+          github-token: ${{ secrets.BUMP_PLUGIN_SHAS_TOKEN || github.token }}
 
       # Per-entry fan-out: dispatch the policy scan against each bump branch.
       # `pr-urls` is a JSON array of {name, old_sha, new_sha, branch, pr_url}
       # entries emitted by the composite action when pr-mode is per-entry. The
       # `scan` check is required on main and does NOT fire on the
-      # GITHUB_TOKEN-opened PR, so it must be dispatched per branch.
+      # GITHUB_TOKEN-opened PR, so it must be dispatched per branch. PRs opened
+      # with BUMP_PLUGIN_SHAS_TOKEN trigger the scan automatically.
       #
       # Dispatch `scan-plugins` ONLY (see header) — NOT official's 3-workflow
       # loop. A single failed dispatch (transient API error / rate limit) must
@@ -96,7 +104,7 @@ jobs:
       # failure list MUST be a tmpfile (the `jq | while` loop runs in a
       # subshell, so a shell-variable counter would be lost on subshell exit).
       - name: Dispatch policy scan per per-entry PR
-        if: steps.bump.outputs.pr-urls != '' && steps.bump.outputs.pr-urls != '[]'
+        if: steps.bump.outputs.pr-urls != '' && steps.bump.outputs.pr-urls != '[]' && env.HAS_BUMP_PLUGIN_SHAS_TOKEN != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           PR_URLS: ${{ steps.bump.outputs.pr-urls }}
