@@ -1043,7 +1043,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gitkraken/claude-plugin.git",
-        "sha": "cd0c2976c9b47a56e2b7d4cce1cd77fc058bee39"
+        "sha": "f7a53b2cd138c22eccb977b9d93494ea6d423d12"
       },
       "homepage": "https://www.gitkraken.com"
     }
