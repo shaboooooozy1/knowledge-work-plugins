@@ -7,19 +7,17 @@ name: Bump Plugin SHAs
 # independently. (Cohort-2 cutover from the previous single-batch
 # `bump/plugin-shas` PR — mirrors claude-plugins-official / -community.)
 #
-# Bot-free — uses the default GITHUB_TOKEN. PRs opened with GITHUB_TOKEN don't
-# trigger on:pull_request workflows, so the policy scan (`scan` from Scan
-# Plugins, a required status check on main) would never run and the bump PR
-# could never merge. workflow_dispatch is exempt from that recursion guard, so
-# we dispatch the scan ourselves against each per-entry bump branch after its
-# PR is opened. Each check run lands on the branch HEAD — the same SHA as the
-# PR head — and satisfies the required check. (Scan Plugins runs its job
-# unconditionally on workflow_dispatch, so a dispatch always reports.)
+# Bot-free PR creation can use GITHUB_TOKEN, with an optional dedicated token.
+# Both modes explicitly dispatch the trusted-main policy scanner after a PR is
+# opened. The scanner receives the PR number and exact head SHA as data and
+# publishes the `scan` check on that SHA. It never executes the bump branch's
+# workflow while holding federation credentials. Configure branch protection
+# separately if `scan` is to be enforced as a required check.
 #
 # IMPORTANT — dispatch `scan-plugins` ONLY. Unlike claude-plugins-official
 # (which requires `scan`+`check`+`validate` and fans out all three), KWP's only
-# bump-blocking required check is `scan`: this repo has NO validate-plugins.yml,
-# and check-mcp-urls is NOT a required status check (it is local-source-only +
+# intended bump policy check is `scan`: this repo has NO validate-plugins.yml,
+# and check-mcp-urls is local-source-only +
 # path-filtered — skips SHA-pinned externals — and self-schedules). Do NOT copy
 # official's 3-workflow loop here — `gh workflow run validate-plugins.yml` would
 # 404 and fail the step nightly, and dispatching check-mcp-urls is needless.
@@ -28,8 +26,8 @@ name: Bump Plugin SHAs
 # expensive than a single batched scan (one workflow run per bump branch), so
 # the cap is conservative. The composite action skips entries that already have
 # an open bump PR, so re-dispatches don't pile up duplicate work.
-#   - scan-plugins.yml caches verdicts by (plugin, sha) so an unchanged SHA
-#     is never re-scanned across nightly runs.
+# The repaired scanner does not reuse historical verdict caches; manually
+# re-dispatching a PR performs a fresh review and may incur API usage.
 # Per-entry failure handling: a policy-failing plugin's `bump/<slug>` PR stays
 # isolated (red on its own scan) and never blocks the others — there is no
 # shared PR to prune, so revert-failed-bumps.yml (still gated on the old
@@ -55,7 +53,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  actions: write  # gh workflow run scan-plugins.yml per per-entry bump branch
+  actions: write  # dispatch trusted-main scans for exact PR heads
 
 concurrency:
   group: bump-plugin-shas
@@ -63,10 +61,6 @@ concurrency:
 jobs:
   bump:
     runs-on: ubuntu-latest
-    # A repository secret is needed when the repository disallows PR creation
-    # by GITHUB_TOKEN. PRs opened with this token trigger pull_request scans.
-    env:
-      HAS_BUMP_PLUGIN_SHAS_TOKEN: ${{ secrets.BUMP_PLUGIN_SHAS_TOKEN != '' }}
     # Per-bump cost is ~2s (ls-remote + shallow clone + validate); 30 entries
     # is ~1-2 min. The 60 min ceiling absorbs slow upstreams without letting a
     # pathological run consume the default 360 min budget.
@@ -74,8 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # createCommitOnBranch-based bump so commits are signed by GitHub and
-      # satisfy the org-level required_signatures ruleset on main.
+      # createCommitOnBranch-based bump so commits are signed by GitHub.
       - uses: anthropics/claude-plugins-community/.github/actions/bump-plugin-shas@426e469f322952061102b286b378c0c9733a0934
         id: bump
         with:
@@ -88,12 +81,12 @@ jobs:
           # pull-requests:write if GITHUB_TOKEN PR creation is disabled.
           github-token: ${{ secrets.BUMP_PLUGIN_SHAS_TOKEN || github.token }}
 
-      # Per-entry fan-out: dispatch the policy scan against each bump branch.
+      # Per-entry fan-out: run trusted main against each exact bump PR head.
       # `pr-urls` is a JSON array of {name, old_sha, new_sha, branch, pr_url}
       # entries emitted by the composite action when pr-mode is per-entry. The
-      # `scan` check is required on main and does NOT fire on the
-      # GITHUB_TOKEN-opened PR, so it must be dispatched per branch. PRs opened
-      # with BUMP_PLUGIN_SHAS_TOKEN trigger the scan automatically.
+      # `scan` policy check does NOT automatically fire on the
+      # GITHUB_TOKEN-opened PR. PR-triggered runs execute only credential-free
+      # contract tests, so both token modes need this explicit dispatch.
       #
       # Dispatch `scan-plugins` ONLY (see header) — NOT official's 3-workflow
       # loop. A single failed dispatch (transient API error / rate limit) must
@@ -104,20 +97,34 @@ jobs:
       # failure list MUST be a tmpfile (the `jq | while` loop runs in a
       # subshell, so a shell-variable counter would be lost on subshell exit).
       - name: Dispatch policy scan per per-entry PR
-        if: steps.bump.outputs.pr-urls != '' && steps.bump.outputs.pr-urls != '[]' && env.HAS_BUMP_PLUGIN_SHAS_TOKEN != 'true'
+        if: steps.bump.outputs.pr-urls != '' && steps.bump.outputs.pr-urls != '[]'
         env:
           GH_TOKEN: ${{ github.token }}
           PR_URLS: ${{ steps.bump.outputs.pr-urls }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           dispatch_failures="$(mktemp)"
           jq -c '.[]' <<<"$PR_URLS" | while read -r entry; do
-            branch=$(jq -r '.branch' <<<"$entry")
-            name=$(jq -r '.name' <<<"$entry")
-            echo "Dispatching scan-plugins.yml against $branch ($name)"
-            if ! gh workflow run scan-plugins.yml --ref "$branch"; then
-              echo "::error::Failed to dispatch scan-plugins.yml against $branch ($name) — required check will be missing; re-dispatch with: gh workflow run scan-plugins.yml --ref $branch"
-              echo "scan-plugins ${branch}" >> "$dispatch_failures"
+            pr_url=$(jq -r '.pr_url' <<<"$entry")
+            pr_number="${pr_url##*/}"
+            if [[ ! "$pr_number" =~ ^[1-9][0-9]*$ ]] ||
+               [[ "$pr_url" != "https://github.com/$REPO/pull/$pr_number" ]]; then
+              echo "::error::Bump action returned an unexpected PR URL."
+              echo "invalid-pr" >> "$dispatch_failures"
+              continue
+            fi
+            if ! head_sha="$(gh api "repos/$REPO/pulls/$pr_number" --jq '.head.sha')" ||
+               [[ ! "$head_sha" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "::error::Could not resolve the exact bump PR head."
+              echo "$pr_number" >> "$dispatch_failures"
+              continue
+            fi
+            echo "Dispatching trusted-main policy scan for PR $pr_number at $head_sha"
+            if ! gh workflow run scan-plugins.yml --repo "$REPO" --ref main \
+                -f pr_number="$pr_number" -f expected_head_sha="$head_sha"; then
+              echo "::error::Failed to dispatch the trusted-main policy scan."
+              echo "$pr_number" >> "$dispatch_failures"
             fi
           done
           if [ -s "$dispatch_failures" ]; then

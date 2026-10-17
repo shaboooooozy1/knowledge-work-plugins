@@ -11,7 +11,7 @@
     "has_undisclosed_telemetry",
     "description_matches_behavior"
   ],
-  "additionalProperties": true,
+  "additionalProperties": false,
   "properties": {
     "passes": {
       "type": "boolean",
