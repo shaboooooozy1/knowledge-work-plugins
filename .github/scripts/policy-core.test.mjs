@@ -221,6 +221,15 @@ test('workflow separates trusted scans from unprivileged PR tests', () => {
   const [tests, review] = workflow.split('  policy-review:');
   assert.ok(!tests.includes('id-token: write'));
   assert.ok(!tests.includes('checks: write'));
+  assert.ok(!tests.includes('pull-requests: read'));
+  // Job permissions replace workflow defaults. Keep every runner capability
+  // explicit here, without granting writes to PRs or repository contents.
+  const permissions = review.match(/^    permissions:\n((?:      [^\n]+\n)+)/m);
+  assert.ok(permissions, 'policy-review must declare its own permissions');
+  assert.deepEqual(Object.fromEntries(permissions[1].trim().split('\n').map(line =>
+    line.trim().split(/:\s*/))), {
+    contents: 'read', 'pull-requests': 'read', 'id-token': 'write', checks: 'write',
+  });
   assert.ok(review.includes("github.ref == 'refs/heads/main'"));
   assert.ok(review.includes("github.event_name == 'workflow_dispatch'"));
   assert.ok(review.includes('vars.ANTHROPIC_FEDERATION_RULE_ID'));
