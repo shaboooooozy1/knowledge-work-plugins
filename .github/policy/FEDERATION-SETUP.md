@@ -74,6 +74,28 @@ different or changed head fails the review rather than approving unseen content.
 The scanner publishes a `scan` check on that exact PR head and checks the head
 again before success. No merge, approval, branch deletion or comment is made.
 
+The trusted job requires `contents: read` for checkout, `pull-requests: read`
+for the initial and final PR identity checks, `id-token: write` for the GitHub
+OIDC assertion, and `checks: write` to create and complete the exact-head check.
+These are job-level grants; PR contract tests must remain read-only and have no
+OIDC access. No PR write, contents write, or status write grant is needed.
+
+After merging a scanner repair, use one eligible open bump as a trusted-main
+canary. Refresh its head SHA immediately before dispatch. Verify both jobs and
+the artifact-upload step complete, then inspect the exact-head `scan` check and
+the four evidence files. A complete canary has one schema-valid verdict for the
+expected source and pin, a matching source inventory, `coverageComplete: true`,
+and a completed `scan` check whose conclusion agrees with that verdict. A
+negative policy verdict can still demonstrate the authentication and publication
+path; it blocks that plugin's merge. An infrastructure error, missing verdict,
+or failed publication does not verify the complete path. A passing offline test
+or a historical green check from the old scanner is insufficient.
+
+If federation configuration is missing or rejected, configure the fork-specific
+rule and repository variables above before retrying. Confirm the service account
+has workspace inference access and the selected model is available. Do not relax
+the trusted-main boundaries or substitute a long-lived API key for the canary.
+
 The bump workflow dispatches the trusted-main scanner regardless of whether it
 opened the PR using `GITHUB_TOKEN` or a dedicated PR token. Rerunning an old scan
 workflow on a bump branch is not the repaired path.

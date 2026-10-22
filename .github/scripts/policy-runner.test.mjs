@@ -39,10 +39,11 @@ const verdict={passes:scenario!=='policy-failure',summary:'Fixture review.',viol
 globalThis.fetch=async(url,options={})=>{
  record(url,options);
  if(url.includes('/pulls/39')) {
+   if(scenario==='pr-read-denied') return {ok:false,status:403};
    gets++;
    return ok({number:39,state:'open',head:{sha:(scenario==='stale-head'&&gets>1?'4':'2').repeat(40),repo:{full_name:'shaboooooozy1/knowledge-work-plugins'}},base:{sha:(scenario.startsWith('base-advanced-')&&gets>1?'6':'5').repeat(40),ref:'main',repo:{full_name:'shaboooooozy1/knowledge-work-plugins'}}});
  }
- if(url.endsWith('/check-runs')&&options.method==='POST') return ok({id:99});
+ if(url.endsWith('/check-runs')&&options.method==='POST') return scenario==='check-create-denied'?{ok:false,status:403}:ok({id:99});
  if(url.endsWith('/check-runs/99')&&options.method==='PATCH') return scenario==='publish-failure'?{ok:false,status:503}:ok({});
  if(url.startsWith('https://vstoken.actions.githubusercontent.com/')) return ok({value:'fixture-jwt'});
  if(url.endsWith('/v1/oauth/token')) return scenario==='auth-denied'?{ok:false,status:401}:ok({token_type:'Bearer',access_token:'fixture-access-token',expires_in:600});
@@ -137,3 +138,16 @@ test('failed check publication cannot leave an overall passing run', () => {
   assert.equal(r.status.state, 'infrastructure_error');
   assert.equal(r.status.publicationComplete, false);
 });
+for (const scenario of ['pr-read-denied', 'check-create-denied']) {
+  test(`GitHub permission denial blocks review before federation: ${scenario}`, () => {
+    const r = run(scenario);
+    assert.equal(r.result.status, 1, r.result.stdout + r.result.stderr);
+    assert.equal(r.status.state, 'infrastructure_error');
+    assert.equal(r.status.coverageComplete, false);
+    assert.deepEqual(r.verdicts, []);
+    assert.deepEqual(r.failures, []);
+    assert.ok(!r.calls.some(c => c.url.includes('anthropic.com') ||
+      c.url.includes('actions.githubusercontent.com') || c.method === 'PATCH'));
+    if (scenario === 'pr-read-denied') assert.equal(r.calls.length, 1);
+  });
+}
